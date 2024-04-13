@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dispensable</title>
+    <link rel="stylesheet" href="dispensable.css">
+</head>
+
+<body>
+    <header>
+        <div class="menu">
+            <ul>
+                <li id="logo"><a href="index.html">Code Reengineering</a></li>
+                <li><a href="dispensable.html">Dispensable</a></li>
+                <li><a href="changePreventer.html">Change Preventer</a></li>
+            </ul>
+            <hr>
+
+    </header>
+
+
+    <div class="banner">
+        <div class="home-text">
+            <h1>Dispensable</h1>
+            <p>Dispensable adalah sesuatu yang tidak ada gunanya dan tidak diperlukan, yang jika tidak ada akan membuat
+                kode lebih bersih, lebih efisien, dan lebih mudah dipahami.</p>
+        </div>
+
+        <div class="comments">
+            <h1>Comments</h1><br>
+            <img src="comment.png">
+            <p id="p1">✅Banyak ahli menganggap comments sebagai code smell, karena kode yang berkualitas harus cukup
+                jelas.
+                Dalam banyak kasus, komponen kode dapat direstrukturisasi dan diberi nama dengan jelas,
+                sehingga comments tidak lagi diperlukan.</p>
+            <br>
+            <p id="p2">Contoh kode :</p>
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.comments.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>import</span> java.util.Scanner;
+                        
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> MenuPrinter <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='color:#3F7F5F'>//print kemudian scan dan return hasil scan
+                        </span>	<span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> printMenu()<span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='color:#3F7F5F'>//print header
+                        </span>		System.out.println(<span style='color:#2A00FF'>"===="</span>);
+                                System.out.println(<span style='color:#2A00FF'>"Menu"</span>);
+                                System.out.println(<span style='color:#2A00FF'>"===="</span>);
+                                
+                                <span style='color:#3F7F5F'>//print menu
+                        </span>		System.out.println(<span style='color:#2A00FF'>"1. Foo"</span>);
+                                System.out.println(<span style='color:#2A00FF'>"2. Bar"</span>);
+                                System.out.println(<span style='color:#2A00FF'>"3. Baz"</span>);
+                                System.out.println(<span style='color:#2A00FF'>"4. Exit"</span>);
+                                
+                                <span style='color:#3F7F5F'>//scan input
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>int</span> input = 0;
+                                Scanner sc = <span style='font-weight:bold;color:#7B0052;'>new</span> Scanner(System.in);
+                                <span style='font-weight:bold;color:#7B0052;'>do</span><span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.println(<span style='color:#2A00FF'>"Input [1-4]: "</span>);
+                                    sc.nextInt();
+                                    sc.nextLine();
+                                <span style='font-weight:bold;color:#D3171B'>}</span><span style='font-weight:bold;color:#7B0052;'>while</span>(input &lt; 1 || input &gt; 4);
+                                sc.close();
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> input;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <p id="p2">Setelah faktorisasi :</p>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.comments.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>import</span> java.util.Scanner;
+                        
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> MenuPrinter <span style='font-weight:bold;color:#D3171B'>{</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> printMenuAndGetInput()<span style='font-weight:bold;color:#D3171B'>{</span>
+                                printHeader();
+                                printMenu();
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> getInput();
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>void</span> printHeader() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                System.out.println(<span style='color:#2A00FF'>"===="</span>);
+                                System.out.println(<span style='color:#2A00FF'>"Menu"</span>);
+                                System.out.println(<span style='color:#2A00FF'>"===="</span>);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>void</span> printMenu() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                System.out.println(<span style='color:#2A00FF'>"1. Foo"</span>);
+                                System.out.println(<span style='color:#2A00FF'>"2. Bar"</span>);
+                                System.out.println(<span style='color:#2A00FF'>"3. Baz"</span>);
+                                System.out.println(<span style='color:#2A00FF'>"4. Exit"</span>);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getInput() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>int</span> input = 0;
+                                Scanner sc = <span style='font-weight:bold;color:#7B0052;'>new</span> Scanner(System.in);
+                                <span style='font-weight:bold;color:#7B0052;'>do</span><span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.println(<span style='color:#2A00FF'>"Input [1-4]: "</span>);
+                                    sc.nextInt();
+                                    sc.nextLine();
+                                <span style='font-weight:bold;color:#D3171B'>}</span><span style='font-weight:bold;color:#7B0052;'>while</span>(input &lt; 1 || input &gt; 4);
+                                sc.close();
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> input;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+        </div>
+
+        <div class="DuplicateCode">
+            <h1>Duplicate Code</h1><br>
+            <img src="duplicate.png">
+            <p id="p1">✅Memiliki beberapa metode yang melakukan hal yang sama adalah cara pemrograman yang ceroboh,
+                dan menyebabkan banyak masalah jangka panjang karena komponen yang berbeda akan mereferensikan metode
+                yang berbeda.</p>
+            <br>
+            <p id="p2">Contoh kode :</p>
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.duplicate_code.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Foo <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> bar()<span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='color:#3F7F5F'>//clear screen
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 26; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.println(<span style='color:#2A00FF'>""</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                <span style='color:#3F7F5F'>//print = 3x
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 3; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.print(<span style='color:#2A00FF'>"="</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                System.out.println(<span style='color:#2A00FF'>""</span>);
+                                System.out.println(<span style='color:#2A00FF'>"Bar"</span>);
+                        
+                                <span style='color:#3F7F5F'>//print = 3x
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 3; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.print(<span style='color:#2A00FF'>"="</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                System.out.println(<span style='color:#2A00FF'>""</span>);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> baz()<span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='color:#3F7F5F'>//clear screen
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 26; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.println(<span style='color:#2A00FF'>""</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                <span style='color:#3F7F5F'>//print = 3x
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 3; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.print(<span style='color:#2A00FF'>"="</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                System.out.println(<span style='color:#2A00FF'>""</span>);
+                                System.out.println(<span style='color:#2A00FF'>"Baz"</span>);
+                        
+                                <span style='color:#3F7F5F'>//print = 3x
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 3; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.print(<span style='color:#2A00FF'>"="</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                System.out.println(<span style='color:#2A00FF'>""</span>);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> qux()<span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='color:#3F7F5F'>//clear screen
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 26; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.println(<span style='color:#2A00FF'>""</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                <span style='color:#3F7F5F'>//print = 3x
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 3; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.print(<span style='color:#2A00FF'>"="</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                System.out.println(<span style='color:#2A00FF'>""</span>);
+                                System.out.println(<span style='color:#2A00FF'>"Qux"</span>);
+                        
+                                <span style='color:#3F7F5F'>//print = 3x
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 3; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.print(<span style='color:#2A00FF'>"="</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                System.out.println(<span style='color:#2A00FF'>""</span>);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <p id="p2">Setelah Faktorisasi :</p>
+            <pre>
+                <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.duplicate_code.after;
+
+                    <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Foo <span style='font-weight:bold;color:#D3171B'>{</span>
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> bar()<span style='font-weight:bold;color:#D3171B'>{</span>
+                            clearScreen();
+                            printWithBorder(<span style='color:#2A00FF'>"Bar"</span>);
+                        <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> baz()<span style='font-weight:bold;color:#D3171B'>{</span>
+                            clearScreen();
+                            printWithBorder(<span style='color:#2A00FF'>"Baz"</span>);
+                        <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> qux()<span style='font-weight:bold;color:#D3171B'>{</span>
+                            clearScreen();
+                            printWithBorder(<span style='color:#2A00FF'>"Qux"</span>);
+                        <span style='font-weight:bold;color:#D3171B'>}</span>
+                    
+                        <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>void</span> printWithBorder(String text) <span style='font-weight:bold;color:#D3171B'>{</span>
+                            printNTimes(<span style='color:#2A00FF'>"="</span>, 3);
+                            System.out.println(<span style='color:#2A00FF'>""</span>);
+                            System.out.println(text);
+                            printNTimes(<span style='color:#2A00FF'>"="</span>, 3);
+                            System.out.println(<span style='color:#2A00FF'>""</span>);
+                        <span style='font-weight:bold;color:#D3171B'>}</span>
+                    
+                        <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>void</span> clearScreen() <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; 26; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                System.out.println(<span style='color:#2A00FF'>""</span>);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                        <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>void</span> printNTimes(String s, <span style='font-weight:bold;color:#7B0052;'>int</span> n) <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; n; i++)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                System.out.print(s);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span>
+                    <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+            </pre>
+        </div>
+
+        <div class="LazyClass">
+            <h1>Lazy Class</h1><br>
+            <img src="lazy.png">
+            <p id="p1">✅Lazy Class adalah kelas yang tidak melakukan banyak hal,
+                atau hanya melakukan beberapa operasi sepele. Hal ini membuat code sulit untuk di maintain, maka Lazy
+                Class harus dihapus.</p>
+            <br>
+            <p id="p2">Contoh kode :</p>
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.lazy_class.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Price <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>int</span> value;
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Price(<span style='font-weight:bold;color:#7B0052;'>int</span> value) <span style='font-weight:bold;color:#7B0052;'>throws</span> Exception <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span>(!PriceValidator.validate(value)) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> Exception(<span style='color:#2A00FF'>"price not valid"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                this.value = value;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getValue() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> value;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.lazy_class.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> PriceValidator <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>static</span> <span style='font-weight:bold;color:#7B0052;'>boolean</span> validate(<span style='font-weight:bold;color:#7B0052;'>int</span> value)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> value &gt;= 0;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <p id="p2">Setelah Faktorisasi :</p>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.lazy_class.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Price <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>int</span> value;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Price(<span style='font-weight:bold;color:#7B0052;'>int</span> value) <span style='font-weight:bold;color:#7B0052;'>throws</span> Exception <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span>(!isPriceValid(value)) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> Exception(<span style='color:#2A00FF'>"price not valid"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                this.value = value;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>boolean</span> isPriceValid(<span style='font-weight:bold;color:#7B0052;'>int</span> value)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> value &gt;= 0;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getValue() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> value;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+        </div>
+
+        <div class="DataClass">
+            <h1>Data Class</h1><br>
+            <img src="data.png">
+            <p id="p1">✅Kelas data mengacu pada kelas yang hanya berisi field dan setter/ getter saja.
+                Kelas-kelas ini tidak mengandung fungsionalitas tambahan dan tidak dapat beroperasi secara independen
+                pada data yang dimilikinya.</p>
+            <br>
+            <p id="p2">Contoh kode :</p>
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.data_class.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> User <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> FullName fullName;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String address;
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String phone;
+                            
+                            <span style='color:#3F7F5F'>//...
+                        </span>	<span style='color:#3F7F5F'>//another User behaviors...
+                        </span>	<span style='color:#3F7F5F'>//...
+                        </span>	
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> login() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='color:#3F7F5F'>//...
+                        </span>	<span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> logout() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='color:#3F7F5F'>//...
+                        </span>	<span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.data_class.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> FullName <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String firstName;
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String lastName;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> FullName(String firstName, String lastName) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>super</span>();
+                                this.firstName = firstName;
+                                this.lastName = lastName;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> String getFirstName() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> firstName;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setFirstName(String firstName) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.firstName = firstName;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> String getLastName() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> lastName;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setLastName(String lastName) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.lastName = lastName;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <p id="p2">Setelah faktorisasi :</p>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.data_class.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> User <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String firstName;
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String lastName;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String address;
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String phone;
+                            
+                            <span style='color:#3F7F5F'>//...
+                        </span>	<span style='color:#3F7F5F'>//another User behaviors...
+                        </span>	<span style='color:#3F7F5F'>//...
+                        </span>	
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> login() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='color:#3F7F5F'>//...
+                        </span>	<span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> logout() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='color:#3F7F5F'>//...
+                        </span>	<span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+        </div>
+
+        <div class="DeadCode">
+            <h1>Dead Code</h1><br>
+            <img src="dead.png">
+            <p id="p1">✅Dead Code adalah bagian kode dalam sebuah program yang tidak berguna dan tidak pernah dijangkau
+                atau dipanggil.
+                Hal ini disebabkan oleh perubahan persyaratan atau koreksi, membuat beberapa bagian kode menjadi usang.
+            </p>
+            <br>
+            <p id="p2">Contoh kode :</p>
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.dead_code.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> PriceCalculator <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>double</span> calculate(<span style='font-weight:bold;color:#7B0052;'>double</span> price, <span style='font-weight:bold;color:#7B0052;'>boolean</span> isDiscount)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>double</span> discountPrice = 0;
+                                
+                                <span style='color:#3F7F5F'>//jika harga kurang dari 10000, diskon 10%
+                        </span>		<span style='color:#3F7F5F'>//selain itu, diskon 20%
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>if</span>(isDiscount)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>if</span>(price &lt; 10000)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                        discountPrice = price * 0.1;
+                                    <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>else</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+                                        discountPrice = price * 0.2;
+                                    <span style='font-weight:bold;color:#D3171B'>}</span>
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                <span style='color:#3F7F5F'>//requirement berubah
+                        </span>		<span style='color:#3F7F5F'>//diskon diketok rata 15%
+                        </span>		<span style='font-weight:bold;color:#7B0052;'>if</span>(isDiscount)
+                                    discountPrice = price * 0.15;
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> price - discountPrice;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <p id="p2">Setelah Faktorisasi :</p>
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.dead_code.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> PriceCalculator <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>double</span> calculate(<span style='font-weight:bold;color:#7B0052;'>double</span> price, <span style='font-weight:bold;color:#7B0052;'>boolean</span> isDiscount)<span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>double</span> discountPrice = 0;
+                            
+                                <span style='font-weight:bold;color:#7B0052;'>if</span>(isDiscount) discountPrice = price * 0.15;
+                                
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> price - discountPrice;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+        </div>
+
+
+        <div class="SpeculativeGenerality">
+            <h1>Speculative Generality</h1><br>
+            <img src="speculative.png">
+            <p id="p1">✅Class, method, field, atau parameter yang sudah disiapkan walaupun belum dipakai. Bahkan sebenarnya tidak ada dalam requirement.
+
+                Biasanya karena programmer berspekulasi bahwa ini akan dibutuhkan. Namun ternyata setelah produk berjalan lama, spekulasinya ini tidak terbukti.
+                
+                Hal ini tentunya menjadi masalah karena kita membuat code lebih sulit dibaca untuk hal yang tidak perlu.</p>
+            <br>
+            <p id="p2">Contoh kode :</p>
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Currency <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> String getCode();
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Currency <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> String getCode();
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> IDR <span style='font-weight:bold;color:#7B0052;'>extends</span> Traditional <span style='font-weight:bold;color:#D3171B'>{</span>
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> String getCode() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='color:#2A00FF'>"IDR"</span>;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Price <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>int</span> value;
+                            Currency currency;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Price(<span style='font-weight:bold;color:#7B0052;'>int</span> value, Currency currency) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.value = value;
+                                this.currency = currency;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getValue() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> value;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setValue(<span style='font-weight:bold;color:#7B0052;'>int</span> value) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.value = value;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Currency getCurrency() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> currency;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setCurrency(Currency currency) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.currency = currency;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Traditional <span style='font-weight:bold;color:#7B0052;'>extends</span> Currency <span style='font-weight:bold;color:#D3171B'>{</span>
+                        
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> USD <span style='font-weight:bold;color:#7B0052;'>extends</span> Traditional <span style='font-weight:bold;color:#D3171B'>{</span>
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> String getCode() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='color:#2A00FF'>"USD"</span>;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <p id="p2">Setelah Faktorisasi :</p>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Currency <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> String getCode();
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> IDR <span style='font-weight:bold;color:#7B0052;'>extends</span> Currency <span style='font-weight:bold;color:#D3171B'>{</span>
+                            
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> String getCode() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='color:#2A00FF'>"IDR"</span>;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Price <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>int</span> value;
+                            Currency currency;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Price(<span style='font-weight:bold;color:#7B0052;'>int</span> value, Currency currency) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.value = value;
+                                this.currency = currency;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getValue() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> value;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setValue(<span style='font-weight:bold;color:#7B0052;'>int</span> value) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.value = value;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Currency getCurrency() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> currency;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setCurrency(Currency currency) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.currency = currency;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+            <pre>
+                <code>
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.dispensables.speculative_generality.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> USD <span style='font-weight:bold;color:#7B0052;'>extends</span> Currency <span style='font-weight:bold;color:#D3171B'>{</span>
+                        
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> String getCode() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> <span style='color:#2A00FF'>"USD"</span>;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code>
+            </pre>
+
+        </div>
+    </div>
+
+    
+
+    <footer class="dispensable">
+        <div>
+            <p>
+                © Oscar Jonathan Daud & Jonathan Lawrencio
+            </p>
+        </div>
+    </footer>
+
+
+</body>
+
+</html>

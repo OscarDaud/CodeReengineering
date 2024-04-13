@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Change Preventer</title>
+    <link rel="stylesheet" href="changepreventer.css">
+</head>
+
+<body>
+    <header>
+        <div class="menu">
+            <ul>
+                <li id="logo"><a href="index.html">Code Reengineering</a></li>
+                <li><a href="dispensable.html">Dispensable</a></li>
+                <li><a href="changePreventer.html">Change Preventer</a></li>
+            </ul>
+            <hr>
+        </div>
+    </header>
+
+    <div class="banner">
+        <div class="home-text">
+            <h1>Change Preventer</h1>
+            <p>Change preventers are coding patterns that make it challenging to modify code in one place without
+                impacting many other parts of the system.</p>
+        </div>
+        <br>
+
+        <div class="divergent">
+
+            <h1>Divergent Change</h1><br>
+            <img src="divergent.png">
+            <p id="p1">✅Divergent Change terjadi ketika suatu kelas atau modul
+                memerlukan beberapa modifikasi karena perubahan di luar cakupannya.
+                Divergent Change dapat diperbaiki dengan memisahkan tanggung jawab yang
+                terlalu beragam ke dalam kelas atau modul yang lebih spesifik.</p><br>
+            <p id="p2">Contoh kode :</p>
+            <div class="code">
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New, Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.divergent_change.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Rectangle <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>int</span> width;
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>int</span> height;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Rectangle(<span style='font-weight:bold;color:#7B0052;'>int</span> width, <span style='font-weight:bold;color:#7B0052;'>int</span> height) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span>(width &lt;= 0 || height &lt;= 0) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> IllegalArgumentException(<span style='color:#2A00FF'>"width and height must be greater than zero"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                this.width = width;
+                                this.height = height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getWidth() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> width;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getHeight() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> area() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> width * height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> perimeter() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> 2 * (width + height);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> print(String style) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                style = style.toLowerCase();
+                                <span style='font-weight:bold;color:#7B0052;'>if</span>(style.equals(<span style='color:#2A00FF'>"full"</span>)) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; height; i++) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                        <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> j = 0; j &lt; width; j++) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                            System.out.print(<span style='color:#2A00FF'>"*"</span>);
+                                        <span style='font-weight:bold;color:#D3171B'>}</span>
+                                        System.out.println(<span style='color:#2A00FF'>""</span>);
+                                    <span style='font-weight:bold;color:#D3171B'>}</span>
+                                <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>else</span> <span style='font-weight:bold;color:#7B0052;'>if</span>(style.equals(<span style='color:#2A00FF'>"border"</span>)) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; height; i++) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                        <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> j = 0; j &lt; width; j++) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                            System.out.print(
+                                                    j == 0 || j == width-1 || 
+                                                    i == 0 || i == height-1 ? <span style='color:#2A00FF'>"*"</span> : <span style='color:#2A00FF'>" "</span>);
+                                        <span style='font-weight:bold;color:#D3171B'>}</span>
+                                        System.out.println(<span style='color:#2A00FF'>""</span>);
+                                    <span style='font-weight:bold;color:#D3171B'>}</span>
+                                <span style='font-weight:bold;color:#D3171B'>}</span> <span style='font-weight:bold;color:#7B0052;'>else</span> <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    System.out.println(<span style='color:#2A00FF'>"style not recognized"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                </div>
+            <p>Setelah faktorisasi :</p>
+            <div class="code">
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.divergent_change.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Rectangle <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>int</span> width;
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>int</span> height;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Rectangle(<span style='font-weight:bold;color:#7B0052;'>int</span> width, <span style='font-weight:bold;color:#7B0052;'>int</span> height) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span>(width &lt;= 0 || height &lt;= 0) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> IllegalArgumentException(<span style='color:#2A00FF'>"width and height must be greater than zero"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                this.width = width;
+                                this.height = height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getWidth() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> width;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> getHeight() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> area() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> width * height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>int</span> perimeter() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> 2 * (width + height);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.divergent_change.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> FullRectanglePrinter <span style='font-weight:bold;color:#7B0052;'>extends</span> RectanglePrinter <span style='font-weight:bold;color:#D3171B'>{</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> FullRectanglePrinter(Rectangle r) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>super</span>(r);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> print() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; r.getHeight(); i++) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> j = 0; j &lt; r.getWidth(); j++) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                        System.out.print(<span style='color:#2A00FF'>"*"</span>);
+                                    <span style='font-weight:bold;color:#D3171B'>}</span>
+                                    System.out.println(<span style='color:#2A00FF'>""</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                </div>
+        </div>
+        <br>
+
+
+
+
+        <div class="shotgun">
+            <h1>Shotgun Surgery</h1><br>
+            <img src="shotgun.png">
+            <p id="p1">✅Shotgun surgery terjadi ketika seorang developer menambahkan fitur atau membuat perubahan yang
+                memerlukan modifikasi beberapa bagian dari basis kode sekaligus.
+                Untuk memperbaiki Shotgun Surgery, pisahkan fungsi-fungsi yang sering berubah menjadi modul atau kelas
+                terpisah,
+                terapkan Single Responsibility Principle (SRP), dan gunakan Dependency Injection untuk mengurangi
+                ketergantungan antar-komponen.
+            </p><br>
+            <p >Contoh kode :</p>
+            <div class="code">
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.shotgun_surgery.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Product <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> String name;
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> price;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Product(String name, <span style='font-weight:bold;color:#7B0052;'>float</span> price) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.name = name;
+                                this.price = price;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.shotgun_surgery.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> PriceService <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> updatePrice(Product p, <span style='font-weight:bold;color:#7B0052;'>float</span> newPrice) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span> (newPrice &lt; 0) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> IllegalArgumentException(<span style='color:#2A00FF'>"price must be positive"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                p.price = newPrice;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.shotgun_surgery.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> PriceIncludeTaxService <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> updatePrice(Product p, <span style='font-weight:bold;color:#7B0052;'>float</span> newPrice, <span style='font-weight:bold;color:#7B0052;'>float</span> tax) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span> (newPrice &lt; 0) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> IllegalArgumentException(<span style='color:#2A00FF'>"price must be positive"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                <span style='font-weight:bold;color:#7B0052;'>if</span> (tax &lt; 0 || tax &gt; 1) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> IllegalArgumentException(<span style='color:#2A00FF'>"tax must be between 0-1"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                p.price = newPrice * (tax+1);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                </div>
+            <p>Setelah faktorisasi :</p>
+
+            <div class="code">
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.shotgun_surgery.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Product <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> String name;
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> <span style='font-weight:bold;color:#7B0052;'>float</span> price;
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> Logger logger;
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> Product(String name, <span style='font-weight:bold;color:#7B0052;'>float</span> price) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.name = name;
+                                this.price = price;
+                                this.logger = <span style='font-weight:bold;color:#7B0052;'>new</span> Logger();
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setName(String name) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                logger.log(<span style='color:#2A00FF'>"action"</span>, <span style='color:#2A00FF'>"update"</span>, <span style='color:#2A00FF'>"name"</span>, name);
+                                this.name = name;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> String getName() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> name;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setPrice(<span style='font-weight:bold;color:#7B0052;'>float</span> price) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span> (price &lt; 0) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> IllegalArgumentException(<span style='color:#2A00FF'>"price must be positive"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                logger.log(<span style='color:#2A00FF'>"action"</span>, <span style='color:#2A00FF'>"update"</span>, <span style='color:#2A00FF'>"price"</span>, price+<span style='color:#2A00FF'>""</span>);
+                                this.price = price;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> getPrice() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> price;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.shotgun_surgery.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> PriceService <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> updatePrice(Product p, <span style='font-weight:bold;color:#7B0052;'>float</span> newPrice) <span style='font-weight:bold;color:#D3171B'>{</span>		
+                                p.setPrice(newPrice);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.shotgun_surgery.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> PriceIncludeTaxService <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> updatePrice(Product p, <span style='font-weight:bold;color:#7B0052;'>float</span> newPrice, <span style='font-weight:bold;color:#7B0052;'>float</span> tax) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span> (tax &lt; 0 || tax &gt; 1) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> IllegalArgumentException(<span style='color:#2A00FF'>"tax must be between 0-1"</span>);
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                p.setPrice(newPrice * (tax+1));
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.shotgun_surgery.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Logger <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> log(String... keyvals) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>if</span>(keyvals.length % 2 == 1) 
+                                    <span style='font-weight:bold;color:#7B0052;'>throw</span> <span style='font-weight:bold;color:#7B0052;'>new</span> IllegalArgumentException(<span style='color:#2A00FF'>"invalid key value pair"</span>);
+                                
+                                String msg = <span style='color:#2A00FF'>""</span>;
+                                <span style='font-weight:bold;color:#7B0052;'>for</span>(<span style='font-weight:bold;color:#7B0052;'>int</span> i = 0; i &lt; keyvals.length; i+=2) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                    msg = keyvals[i] + <span style='color:#2A00FF'>"="</span> + keyvals[i+1];
+                                <span style='font-weight:bold;color:#D3171B'>}</span>
+                                
+                                System.out.println(msg);
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+               
+        </div>
+
+
+        <div class="parallel">
+            <h1>Parallel Inheritance Hierarchies</h1><br>
+            <img src="parallel.png">
+            <p id="p1">✅
+                Parallel inheritance hierarchies terjadi ketika subclass dari satu kelas harus terhubung ke subclass
+                dari kelas lain, sering kali mengakibatkan duplikasi kode dan keterikatan yang erat antara kelas-kelas.
+                Situasi ini muncul ketika beberapa hierarki pewarisan saling terhubung, membuat kode sulit untuk
+                dipelihara dan diperluas.
+                Hal ini dapat mengakibatkan pembuatan kelas-kelas yang tidak perlu, meningkatkan kompleksitas dan
+                kerapuhan.</p><br>
+            <p id="p2">Contoh kode :</p>
+
+            <div class="code">
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> TriangleAreaCalculator <span style='font-weight:bold;color:#7B0052;'>implements</span> AreaInterface <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> Triangle t;
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> TriangleAreaCalculator(Triangle t) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>super</span>();
+                                this.t = t;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> area() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> t.getHeight() * t.getWidth() / 2;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Triangle <span style='font-weight:bold;color:#7B0052;'>extends</span> Shape2D <span style='font-weight:bold;color:#D3171B'>{</span>
+                        
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Shape2D <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>protected</span> <span style='font-weight:bold;color:#7B0052;'>float</span> width;
+                            <span style='font-weight:bold;color:#7B0052;'>protected</span> <span style='font-weight:bold;color:#7B0052;'>float</span> height;
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> getWidth() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> width;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setWidth(<span style='font-weight:bold;color:#7B0052;'>float</span> width) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.width = width;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> getHeight() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setHeight(<span style='font-weight:bold;color:#7B0052;'>float</span> height) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.height = height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> RectangleAreaCalculator <span style='font-weight:bold;color:#7B0052;'>implements</span> AreaInterface <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>private</span> Rectangle r;
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> RectangleAreaCalculator(Rectangle r) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>super</span>();
+                                this.r = r;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> area() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> r.getWidth() * r.getHeight();
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Rectangle <span style='font-weight:bold;color:#7B0052;'>extends</span> Shape2D <span style='font-weight:bold;color:#D3171B'>{</span>
+                        
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.before;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>interface</span> AreaInterface <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> area();
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+
+            </div>
+            <p>Setelah faktorisasi :</p>
+            <div class="code">
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Triangle <span style='font-weight:bold;color:#7B0052;'>extends</span> Shape2D <span style='font-weight:bold;color:#D3171B'>{</span>
+                            
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> area() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> height * width / 2;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                            
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>abstract</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Shape2D <span style='font-weight:bold;color:#7B0052;'>implements</span> AreaInterface <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>protected</span> <span style='font-weight:bold;color:#7B0052;'>float</span> width;
+                            <span style='font-weight:bold;color:#7B0052;'>protected</span> <span style='font-weight:bold;color:#7B0052;'>float</span> height;
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> getWidth() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> width;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setWidth(<span style='font-weight:bold;color:#7B0052;'>float</span> width) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.width = width;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> getHeight() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>void</span> setHeight(<span style='font-weight:bold;color:#7B0052;'>float</span> height) <span style='font-weight:bold;color:#D3171B'>{</span>
+                                this.height = height;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>class</span> Rectangle <span style='font-weight:bold;color:#7B0052;'>extends</span> Shape2D <span style='font-weight:bold;color:#D3171B'>{</span>
+                        
+                            @Override
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> area() <span style='font-weight:bold;color:#D3171B'>{</span>
+                                <span style='font-weight:bold;color:#7B0052;'>return</span> height * width;
+                            <span style='font-weight:bold;color:#D3171B'>}</span>
+                        
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                <pre><code class="java">
+                    <pre style='text-align: left; border: 1px dashed #008DEF; line-height: 18px; padding: 15px; font-size: 13px; font-family:'Courier New', Courier, monospace; overflow: auto;'><span style='font-weight:bold;color:#7B0052;'>package</span> fowler.change_preventers.parallel_inheritance_hierarchies.after;
+
+                        <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>interface</span> AreaInterface <span style='font-weight:bold;color:#D3171B'>{</span>
+                            <span style='font-weight:bold;color:#7B0052;'>public</span> <span style='font-weight:bold;color:#7B0052;'>float</span> area();
+                        <span style='font-weight:bold;color:#D3171B'>}</span></pre>
+                </code></pre>
+                
+                
+
+                
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+
+    <footer>
+        <div>
+            <p>
+                © Oscar Jonathan Daud & Jonathan Lawrencio
+            </p>
+        </div>
+    </footer>
+    
+
+
+</body>
+
+</html>
